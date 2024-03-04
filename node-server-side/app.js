@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import { config } from "dotenv";
+import startWebSocket from "./socket";
 
 config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -40,6 +41,8 @@ app.use("/", routes);
     console.log(`Error occured while connecting with MongoDB`);
   }
 })();
+
+startWebSocket(server); // Web socket connection
 
 server.listen(PORT, () => {
   console.log(`Server running in PORT: ${PORT}`);
